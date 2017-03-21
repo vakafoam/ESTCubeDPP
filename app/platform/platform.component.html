@@ -1,0 +1,22 @@
+<h2>This is Data Processing Platform</h2>
+
+<div class="row">
+    <div class="col-xs-2">
+        <form [formGroup]="platForm" #form>
+            <label>PLATFORM</label>
+            <fieldset class="form-inline">
+                <div class="form-group" id="platform-select">
+                    
+                    <label for="platform-dropdown" class="sr-only">Platform</label>
+                    <select id="platform-dropdown" class="form-control btn btn-primary" formControlName="platform">
+                        <option *ngFor="let platform of platformArr" [value]="platform">{{platforms[platform]}}</option>
+                    </select>
+                    
+                </div>
+
+                <button class="btn btn-success btn-xl" type="submit" (click)="submitSelected()" [disabled]="platForm.invalid">Go!</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
