@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var constants_1 = require('../shared/constant/constants');
+var upload_service_1 = require('./service/upload.service');
 var PlatformComponent = (function () {
-    function PlatformComponent(formB) {
+    function PlatformComponent(formB, service) {
         this.formB = formB;
+        this.service = service;
         this.platforms = constants_1.PLATFORM;
         this.platformArr = [];
     }
@@ -30,14 +32,29 @@ var PlatformComponent = (function () {
         this.selectedPlatform = this.platforms[this.platForm.value["platform"]];
         console.log("Selected Platform: " + this.selectedPlatform);
     };
+    PlatformComponent.prototype.fileChange = function (event) {
+        this.scriptFile = event.target.files[0];
+        console.log("file chosen");
+        console.log(this.scriptFile.name);
+    };
+    PlatformComponent.prototype.upload = function () {
+        this.service.makeFileRequest("http://127.0.0.1:5000/", [], this.scriptFile) // to flask application
+            .subscribe(function (result) {
+            console.log(result);
+            console.log("Something happened");
+        }, function (error) {
+            console.error(error);
+        });
+    };
     PlatformComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'platform',
             templateUrl: 'platform.component.html',
-            styleUrls: ['platform.component.css']
+            styleUrls: ['platform.component.css'],
+            providers: [upload_service_1.UploadService]
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, upload_service_1.UploadService])
     ], PlatformComponent);
     return PlatformComponent;
 }());

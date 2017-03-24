@@ -19,4 +19,10 @@
         </form>
     </div>
 </div>
+<div class="row">
+    <div class="col-xs-2">
+        <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".txt,.pdf,.doc,.docx" name="file">
+        <button type="button" (click)="upload()">Upload</button>
+    </div>
+</div>
 
